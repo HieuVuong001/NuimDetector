@@ -16,6 +16,8 @@ The data consists of:
 
 Note that only training and validation will be annotated.
 
+**Before moving on, please check out the tutorial notebook [here](https://colab.research.google.com/github/nutonomy/nuscenes-devkit/blob/master/python-sdk/tutorials/nuimages_tutorial.ipynb#scrollTo=PHrB6KzNgQHS)**
+
 ##  Packages
 
 Using your favorite virtual environment, install the required packages using
