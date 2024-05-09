@@ -86,15 +86,47 @@ The majority of training and testing scripts will be developed using PyTorch.
 
 Problem: Computing Resource
 - 
-As we have a lot of high quality data, fitting a large batch size onto GPU would pose memory related problems. A solution would be to reduce batch size and/or image size. Additionally, we can also use more computing resources.
+As we have a lot of high quality data, fitting a large batch size onto GPU would pose memory related problems. 
+
+Solution:
+
+- Reduce Batch Size and Image Size: 
+    - Scaling down the batch size and image resolution can help fit the data within the GPU's memory while still providing meaningful insights for training. This also speeds up training iterations, allowing more frequent parameter updates. 
+
+- More Computing Resources: 
+    - Access to additional computing power, such as using multi-GPU setups or cloud-based high-performance computing clusters, can facilitate training with larger datasets. Tools like Google Cloud AI Platform or Amazon SageMaker offer flexible compute resources. 
+
+- Gradient Accumulation:
+    - Implement gradient accumulation to simulate larger batch sizes without exhausting GPU memory.
 
 Problem: Data
 -
-Getting to know the data can be difficult as the data is stored in various different tables. To solve this problem, we need to reserve some time to understand all aspects of the data. Additionally, we can develop high-level scripts that allow interacting with the data more user-friendly.
+Getting to know the data can be difficult as the data is stored in various different tables. 
+
+Solution:
+
+- Time Investment: 
+    - Allocate sufficient time for team members to explore the dataset thoroughly. This understanding will help identify relationships across different tables, ensuring   more meaningful data integration. 
+
+- High-Level Scripts: 
+    - Create utility scripts that abstract the complexities of data retrieval, processing, and aggregation. Scripts like these can help simplify the interaction with the data, providing user-friendly views of data subsets and enabling quick visual exploration.
+
 
 Problem: Model
 -
 Different algorithms prefer certain input as well as output. In order to fit many models, the data need to be set up as versatile as possible such that changing model would not require changing too much of the set up.
+
+Solution:
+
+- Versatile Data Setup: 
+    - Ensure that data preprocessing pipelines can be easily adjusted to accommodate the input/output requirements of various algorithms. Implement modular data transformation functions that can be reused across models. 
+
+- Standardization: 
+    - Standardize the output format and features used wherever feasible, so that switching models requires minimal changes to the data processing steps. 
+
+- Experiment Tracking: 
+    - Use experiment management tools (e.g., MLflow or Weights & Biases) to track model parameters and pipeline variations which can guide adaptation when switching between algorithms.
+
 
 Problem: Others
 -
