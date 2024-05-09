@@ -1,6 +1,6 @@
 # NuimDetector
 
-Multiclass objects detection using nuImages.
+Multiclass objects detection using nuImages. 
 
 # Getting Started
 
