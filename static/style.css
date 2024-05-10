@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 100%;
+    width: 100%;
+}
+h1 {
+    margin: 0 0 20px;
+    font-size: 32px;
+    color: #333;
+}
+form {
+    margin-bottom: 20px;
+}
+input[type="file"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;
+}
+button {
+    background-color: #3b5998;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+button:hover {
+    background-color: #2d4373;
+}
+#loading {
+    display: none;
+    color: #555;
+    font-size: 16px;
+    margin-top: 10px;
+}
+#output {
+    text-align: left;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.img-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 2px solid #d3d3d3;
+    background-color: #e9ecef;
+}
+h3 {
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    font-size: 18px;
+}

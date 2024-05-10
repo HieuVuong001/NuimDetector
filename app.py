@@ -1,15 +1,13 @@
 from flask import Flask, request, send_file, render_template
 from PIL import Image, ImageDraw
-import torch
 import io
+from ultralytics import YOLO
 
 # Initialize the Flask application
 app = Flask(__name__)
 
 # Load your YOLOv5 model
-model_path = 'C:/Users/jeffr/Desktop/SJSU Course/24 Spring/CMPE-258/Project/finalModel.pt'
-# model = ''
-model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path, force_reload=True, trust_repo=True)
+model = YOLO('/home/jv/models/train/weights/best.pt')
 
 @app.route('/')
 def index():
@@ -24,13 +22,14 @@ def predict():
     img = Image.open(request.files['image']).convert('RGB')
 
     # Run the model inference
-    results = model(img)
+    results = model(img, save=True)
 
     # Draw bounding boxes on the original image
-    draw = ImageDraw.Draw(img)
-    for row in results.pandas().xyxy[0].itertuples():
-        draw.rectangle([row.xmin, row.ymin, row.xmax, row.ymax], outline="red", width=3)
+    # draw = ImageDraw.Draw(img)
+    # for row in results.pandas().xyxy[0].itertuples():
+    #     draw.rectangle([row.xmin, row.ymin, row.xmax, row.ymax], outline="red", width=3)
 
+    img = Image.open('./runs/detect/predict/image0.jpg')
     # Save to an in-memory byte stream
     img_io = io.BytesIO()
     img.save(img_io, 'JPEG')
