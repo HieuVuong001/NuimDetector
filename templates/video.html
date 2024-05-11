@@ -1,0 +1,30 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<html>
+
+<div class="page-container">
+    <div class="video-title">
+        <h1>
+            Real-time YOlO Processing
+        </h1>
+    </div>
+
+    <div class="video-container">
+        <img src="{{ url_for('stream') }}" height="80%">
+    </div>
+
+    <button id="back-button">
+        Go Back
+    </button>
+</div>
+   
+</html>
+
+<script>
+    document.getElementById('back-button').addEventListener('click', function() {
+        window.location.replace('./')
+    })
+</script>
+

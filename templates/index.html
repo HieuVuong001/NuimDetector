@@ -4,17 +4,19 @@
     <title>Multiclass 2D Object Detection using NuImages</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <div class="container">
         <h1>Multiclass 2D Object Detection using NuImages</h1>
         <form id="uploadForm">
-            <input type="file" id="imageUpload" accept="image/*"><br><br>
+            <input type="file" id="imageUpload" accept="image/*, video/*"><br><br>
             <button type="submit">Upload and Process</button>
             <p id="loading">Processing image, please wait...</p>
         </form>
         <div id="output">
             <div class="img-container">
                 <h3>Uploaded Image</h3>
+
                 <img id="uploadedImage" alt="Uploaded Image"/>
             </div>
             <div class="img-container">
@@ -28,7 +30,22 @@
     document.getElementById('uploadForm').onsubmit = async function(event) {
         event.preventDefault();
         const fileInput = document.getElementById('imageUpload');
+
         const file = fileInput.files[0];
+
+        // if filename ends with mp4
+        if (file.name.endsWith('mp4')){ 
+
+            const formData = new FormData();
+            formData.append('video', file);
+
+            const response = await fetch('/predict_video', {
+                method: 'POST',
+                body: formData
+            });
+            
+            window.location.replace('./video')
+        }
 
         // Display the uploaded image
         const uploadedImageElement = document.getElementById('uploadedImage');
