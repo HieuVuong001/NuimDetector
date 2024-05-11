@@ -127,11 +127,6 @@ Solution:
 - Experiment Tracking: 
     - Use experiment management tools (e.g., MLflow or Weights & Biases) to track model parameters and pipeline variations which can guide adaptation when switching between algorithms.
 
-
-Problem: Others
--
-Other problems and solutions will be added moving forward.
-
 # References
 - [Data](https://www.nuscenes.org/nuimages#download)
 - [Tutorial](https://github.com/nutonomy/nuscenes-devkit/blob/master/python-sdk/tutorials/nuimages_tutorial.ipynb)
