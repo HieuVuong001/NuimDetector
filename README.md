@@ -63,18 +63,33 @@ The goal of the project would be to build a full pipeline of Deep Learning app w
 - [x] Data Acquisition and Processing
   - [x] Download dependencies and set up data  
   - [x] Get to know the data (schemas) and the dev-kit
-  - [ ] EDA
-  - [ ] Develop modules to interact with the data on top of the dev-kit
-- [ ] State-of-the-Art Models
-  - [ ] Research applicable models to try (<ins>Ongoing</ins>)
-  - [ ] Try out various models and compare performance 
-- [ ] Model change and Training/Fine-tuning
-- [ ] Inference
-- [ ] Optimization
-- [ ] Real-time test
+  - [x] EDA
+  - [x] Develop modules to interact with the data on top of the dev-kit
+- [x] State-of-the-Art Models
+  - [x] Research applicable models to try 
+  - [x] Try out various models and compare performance 
+- [x] Model change and Training/Fine-tuning
+- [x] Inference
+- [x] Real-time test
 
+# Models
 
-The list will be updated accordingly throughout the development cycle.
+All models are trained for approximately 20 epochs to ensure fair comparison. Some training has epochs fluctuation due to training on HPC with time-based training and epochs-based training.
+
+Many experimentations were carried out, but the numbers don't line up perfectly like our planned experiments (i.e. some models were trained with different number of epochs, some were continued from best weight rather than last weight, ...). Therefore, we decided to not include them into our analysis. Rather, we would provide the numbers observed as speculative results toward the end of the report.
+
+The following models are part of our primary analysis:
+
+YoloV8:
+-
+
+- Pretrained vs Scratch.
+- AdamW on Pretrained Weights.
+
+YoloV5:
+-
+
+- Pretrained only.
 
 # Explanation of baseline modules
 
