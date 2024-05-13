@@ -1,28 +1,31 @@
-from flask import Flask, Response, request, send_file, render_template, redirect
-from PIL import Image, ImageDraw
+from flask import Flask, flash, Response,  request, send_file, render_template, redirect, url_for
+from werkzeug.utils import secure_filename
+
+from PIL import Image
 import io
+import os
+try:
+    __import__('YOLO')
+except ImportError:
+    os.system('pip install ultralytics')
+
 from ultralytics import YOLO
 import cv2
+
+UPLOAD_FOLDER = './storage'
+
 # Initialize the Flask application
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Load your YOLOv5 model
-model = YOLO('/home/jv/models/train/weights/best.pt', verbose=False)
-
-global video
-
-# flag for processed image
-ready = False
-
-
-video_path = '/home/jv/NuimDetector/14537338-hd_1920_1080_30fps.mp4'
+model = YOLO('./models/yolov8_pretrained/weights/best.pt', verbose=False)
 
 global cap
 
 @app.route('/')
 def index():
-    return render_template('index.html', ready=ready)
-
+    return render_template('index.html')
 
 def generate_video():
     while cap.isOpened():
@@ -35,7 +38,6 @@ def generate_video():
             ret, buffer = cv2.imencode('.jpg', annotated_frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-            # cv2.imshow("Yolo8 Inference", annotated_frame)
         else:
             # Break the loop if the end of the video is reached
             break
@@ -51,8 +53,13 @@ def predict_video():
     # Get video path in request
     file = request.files['video']
 
-    cap = cv2.VideoCapture(file.filename)
+    filename = secure_filename(file.filename)
 
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    cap =  cv2.VideoCapture(f'{UPLOAD_FOLDER}/{filename}')
+
+    print(int(cap.get(cv2.CAP_PROP_FRAME_COUNT)))
     return redirect('/stream')
 
 
@@ -89,4 +96,4 @@ def predict():
     return send_file(img_io, mimetype='image/jpeg')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True)
