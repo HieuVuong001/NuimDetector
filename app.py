@@ -4,8 +4,9 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 import io
 import os
+
 try:
-    __import__('YOLO')
+    __import__('ultralytics')
 except ImportError:
     os.system('pip install ultralytics')
 
