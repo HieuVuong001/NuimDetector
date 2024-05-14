@@ -20,7 +20,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Load your YOLOv5 model
-model = YOLO('./models/yolov8_pretrained/weights/best.pt', verbose=False)
+model = YOLO('./trained_models/yolov8_pretrained/weights/best.pt', verbose=False)
 
 global cap
 
