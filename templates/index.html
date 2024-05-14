@@ -24,9 +24,107 @@
                 <img id="processedImage" alt="Processed Image"/>
             </div>
         </div>
+        <div>
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_1.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_2.jpg" style="width:50%">
+            </div>
+          
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_3.jpg" style="width:50%">
+            </div>
+              
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_4.jpg" style="width: 50%">
+            </div>
+          
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_5.jpg" style="width:50%">
+            </div>
+              
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_6.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+                <img id = "gal" src="/static/images/test_7.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+                <img id = "gal" src="/static/images/test_8.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+                <img id = "gal" src="/static/images/test_9.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+                <img id = "gal" src="/static/images/test_10.jpg" style="width:50%">
+            </div>
+          
+            <div class="caption-container">
+              <p id="caption"></p>
+            </div>
+          
+            <div class="row">
+              <div class="column">
+                <img class="cursor" src="/static/images/test_1.jpg" style="width:100%" onclick="currentSlide(1)" alt="Test 1">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static/images/test_2.jpg" style="width:100%" onclick="currentSlide(2)" alt="Test 2">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static/images/test_3.jpg" style="width:100%" onclick="currentSlide(3)" alt="Test 3">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static/images/test_4.jpg" style="width:100%" onclick="currentSlide(4)" alt="Test 4">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static/images/test_5.jpg" style="width:100%" onclick="currentSlide(5)" alt="Test 5">
+              </div>    
+              <div class="column">
+                <img class="cursor" src="/static//images/test_6.jpg" style="width:100%" onclick="currentSlide(6)" alt="Test 6">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static//images/test_7.jpg" style="width:100%" onclick="currentSlide(7)" alt="Test 7">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static//images/test_8.jpg" style="width:100%" onclick="currentSlide(8)" alt="Test 8">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static//images/test_9.jpg" style="width:100%" onclick="currentSlide(9)" alt="Test 9">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static//images/test_10.jpg" style="width:100%" onclick="currentSlide(10)" alt="Test 10">
+              </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function currentSlide(n) {
+    showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let captionText = document.getElementById("caption");
+
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+    slides[slideIndex-1].style.display = "block";
+    }
+        
     document.getElementById('uploadForm').onsubmit = async function(event) {
         event.preventDefault();
         const fileInput = document.getElementById('imageUpload');
