@@ -2,8 +2,9 @@ from flask import Flask, flash, Response,  request, send_file, render_template, 
 from werkzeug.utils import secure_filename
 
 from PIL import Image
-import io
 import os
+import requests
+from io import BytesIO
 
 try:
     __import__('ultralytics')
@@ -60,7 +61,6 @@ def predict_video():
 
     cap =  cv2.VideoCapture(f'{UPLOAD_FOLDER}/{filename}')
 
-    print(int(cap.get(cv2.CAP_PROP_FRAME_COUNT)))
     return redirect('/stream')
 
 
@@ -69,31 +69,31 @@ def video_page():
     return render_template('video.html')
 
 
+
 @app.route('/predict', methods=['POST'])
 def predict():
-    if 'image' not in request.files:
-        return "No image uploaded", 400
-
-    # Load the uploaded image
-    img = Image.open(request.files['image']).convert('RGB')
+    # if 'image' not in request.files:
+    #     return "No image uploaded", 400
+    if 'img_src' in request.form:
+        # Get the image from within the site
+        response = requests.get(request.form['img_src'])
+        img = Image.open(BytesIO(response.content)).convert('RGB')
+    else:
+        # Load the uploaded image
+        img = Image.open(request.files['image']).convert('RGB')
 
     # Run the model inference
-    results = model(img, save=True, project='processed')
+    results = model(img, save=True, project='processed', verbose=False)
 
-    # Draw bounding boxes on the original image
-    # draw = ImageDraw.Draw(img)
-    # for row in results.pandas().xyxy[0].itertuples():
-    #     draw.rectangle([row.xmin, row.ymin, row.xmax, row.ymax], outline="red", width=3)
-
+    
     img = Image.open(f'{results[0].save_dir}/image0.jpg')
+    
     # Save to an in-memory byte stream
-    img_io = io.BytesIO()
+    img_io = BytesIO()
     img.save(img_io, 'JPEG')
     img_io.seek(0)
 
     # Return the processed image and set flag to true
-    ready = True
-    print(ready)
     return send_file(img_io, mimetype='image/jpeg')
 
 if __name__ == '__main__':

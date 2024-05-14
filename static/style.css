@@ -175,3 +175,7 @@ h3 {
 .demo:hover {
   opacity: 1;
 }
+
+#gal {
+    display: none;
+}
