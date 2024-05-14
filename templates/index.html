@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Multiclass 2D Object Detection using NuImages</title>
+    <title>Multiclass 2D Object Detection with NuImages</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
     <div class="container">
-        <h1>Multiclass 2D Object Detection using NuImages</h1>
+        <h1>Multiclass 2D Object Detection with NuImages</h1>
+        <hr>
+        <div class="description" style="text-align: left;">
+          <h2>Upload Your Own</h2>
+          <p>Please upload your own image to see the model's result.</p>
+          <p>Since uploaded images are different from the distribution of training data, result may vary.</p>
+        </div>
+
         <form id="uploadForm">
             <input type="file" id="imageUpload" accept="image/*, video/*"><br><br>
             <button type="submit">Upload and Process</button>
@@ -24,13 +31,149 @@
                 <img id="processedImage" alt="Processed Image"/>
             </div>
         </div>
+
+        <div class="description" style="text-align: left;">
+          <h2>Test Images</h2>
+          <p>Please click on one these test images to see the model's result.</p>
+          <p>These images are a small subset of the test set</p>
+        </div>
+        <div>
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_1.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_2.jpg" style="width:50%">
+            </div>
+          
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_3.jpg" style="width:50%">
+            </div>
+              
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_4.jpg" style="width: 50%">
+            </div>
+          
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_5.jpg" style="width:50%">
+            </div>
+              
+            <div class="mySlides">
+              <img id = "gal" src="/static/images/test_6.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+                <img id = "gal" src="/static/images/test_7.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+                <img id = "gal" src="/static/images/test_8.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+                <img id = "gal" src="/static/images/test_9.jpg" style="width:50%">
+            </div>
+
+            <div class="mySlides">
+                <img id = "gal" src="/static/images/test_10.jpg" style="width:50%">
+            </div>
+          
+            <div class="caption-container">
+              <p id="caption"></p>
+            </div>
+          
+            <div class="row">
+              <div class="column">
+                <img class="cursor" src="/static/images/test_1.jpg" style="width:100%" onclick="currentSlide(1)" alt="Test 1">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static/images/test_2.jpg" style="width:100%" onclick="currentSlide(2)" alt="Test 2">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static/images/test_3.jpg" style="width:100%" onclick="currentSlide(3)" alt="Test 3">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static/images/test_4.jpg" style="width:100%" onclick="currentSlide(4)" alt="Test 4">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static/images/test_5.jpg" style="width:100%" onclick="currentSlide(5)" alt="Test 5">
+              </div>    
+              <div class="column">
+                <img class="cursor" src="/static//images/test_6.jpg" style="width:100%" onclick="currentSlide(6)" alt="Test 6">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static//images/test_7.jpg" style="width:100%" onclick="currentSlide(7)" alt="Test 7">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static//images/test_8.jpg" style="width:100%" onclick="currentSlide(8)" alt="Test 8">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static//images/test_9.jpg" style="width:100%" onclick="currentSlide(9)" alt="Test 9">
+              </div>
+              <div class="column">
+                <img class="cursor" src="/static//images/test_10.jpg" style="width:100%" onclick="currentSlide(10)" alt="Test 10">
+              </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    async function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let captionText = document.getElementById("caption");
+
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+      }
+
+      // if an image is chosen, show it as a block, otherwise, set it to none
+      slides[slideIndex-1].style.display = "block";
+      const img_src = slides[slideIndex-1].childNodes[1].src;
+
+      let reader = new FileReader();
+      const formData = new FormData();
+      formData.append('img_src', img_src)
+
+      const uploadedImageElement = document.getElementById('uploadedImage');
+      uploadedImageElement.src = img_src
+      
+      // Show loading message
+      document.getElementById('loading').style.display = 'block';
+
+      const response = await fetch('/predict', {
+            method: 'POST',
+            body: formData
+        });
+
+
+      // Hide loading message
+      document.getElementById('loading').style.display = 'none';
+      if (response.ok) {
+            const processedImageElement = document.getElementById('processedImage');
+            const blob = await response.blob();
+            processedImageElement.src = URL.createObjectURL(blob);
+        } else {
+            processedImageElement.src = '';
+            alert('Error: The server could not process the image. Please check the image format or try again later.');
+        }
+
+
+    }
+
+
+        
     document.getElementById('uploadForm').onsubmit = async function(event) {
         event.preventDefault();
         const fileInput = document.getElementById('imageUpload');
-
         const file = fileInput.files[0];
 
         // if filename ends with mp4
@@ -50,10 +193,10 @@
         // Display the uploaded image
         const uploadedImageElement = document.getElementById('uploadedImage');
         uploadedImageElement.src = URL.createObjectURL(file);
-
+        
         const formData = new FormData();
         formData.append('image', file);
-
+        
         // Show loading message
         document.getElementById('loading').style.display = 'block';
 
