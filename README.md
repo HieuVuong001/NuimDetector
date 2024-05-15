@@ -66,9 +66,21 @@ docker pull hvuong1/nuimdetector24:latest
 docker run -dp 127.0.0.1:5000:5000 hvuong1/nuimdetector24:latest 
 ```
 
-Note: The image takes a long time to install all dependencies, so please be patient. You can remove `-d` when running the docker image so you can packages being installed.
+Note: The image takes a long time to install all dependencies, so please be patient. You can remove `-d` when running the docker image so you can see packages being installed.
 
 We could push an image where you don't have to install everytime you start up the program, but that would make the docker image size extremely large.
+
+Alternatively, if you don't want to mess with docker, you can run the project by doing the following steps:
+
+1. Download one of our trained models from our [Drive](https://drive.google.com/drive/u/2/folders/1GZ5h7MHjeyi_txFYEI2azLb_FLaU_WKo)
+2. Follow this structure:
+    ```
+    app.py
+    README.md
+    trained_models/
+        yolov8_pretrained/ <--- (Your downloaded model folder here)
+    ```
+3. Run the app using `python3 app.py`
 
 # Roadmap
 The goal of the project would be to build a full pipeline of Deep Learning app with model trainining.
