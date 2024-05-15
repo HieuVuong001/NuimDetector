@@ -52,9 +52,23 @@ pip install -r requirements.txt
 
 This will include all the required packages of the [dev-kit](https://github.com/nutonomy/nuscenes-devkit) as of `v1.1.11`.
 
+Note: `flask_requirements.py` is for Docker only (used to reduce image size).
+
 # Usage
 
-To be updated...
+It would be best to pull a docker image and run it from there so you don't have to worry about dependencies.
+
+```
+# Pull image from docker hub
+docker pull hvuong1/nuimdetector24:latest
+
+# Runs docker image on PORT 5000
+docker run -dp 127.0.0.1:5000:5000 hvuong1/nuimdetector24:latest 
+```
+
+Note: The image takes a long time to install all dependencies, so please be patient. You can remove `-d` when running the docker image so you can packages being installed.
+
+We could push an image where you don't have to install everytime you start up the program, but that would make the docker image size extremely large.
 
 # Roadmap
 The goal of the project would be to build a full pipeline of Deep Learning app with model trainining.
